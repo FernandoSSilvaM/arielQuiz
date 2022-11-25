@@ -122,18 +122,32 @@ var quiz = {
             } else {
                 quiz.hQn.innerHTML = `You have answered ${quiz.score} of ${quiz.data.length} correctly.`;
                 quiz.hAns.innerHTML = "";
+
                 let radio = document.createElement("input");
                 radio.type = "radio";
-                radio.name = "quiz";
-                radio.id = "quizo";
+                radio.name = "menu";
+                radio.id = "menu";
                 quiz.hAns.appendChild(radio);
                 let label = document.createElement("label");
-                label.innerHTML = 'VER SCOREBOARD';
+                label.innerHTML = 'Menu principal';
                 label.setAttribute("for", "quizo");
                 label.addEventListener("click", () => {
                     window.location.replace("/");
                 });
                 quiz.hAns.appendChild(label);
+
+                let radio2 = document.createElement("input");
+                radio2.type = "radio";
+                radio2.name = "quiz";
+                radio2.id = "quizo";
+                quiz.hAns.appendChild(radio2);
+                let label2 = document.createElement("label");
+                label2.innerHTML = 'Ver Puntajes';
+                label2.setAttribute("for", "quizo");
+                label2.addEventListener("click", () => {
+                    window.location.replace("/scores");
+                });
+                quiz.hAns.appendChild(label2);
             }
         }, 1000);
     },
