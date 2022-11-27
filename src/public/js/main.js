@@ -48,7 +48,7 @@ var main = {
             label.innerHTML = "QUIZ";
             label.setAttribute("for", "quizo");
             label.addEventListener("click", () => {
-                window.location.replace("/quiz/" + slider.value);;
+                window.location.replace("/quiz/" + slider.value);
             });
 
 

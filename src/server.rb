@@ -13,5 +13,5 @@ get '/quiz/:n' do
 end
 
 get '/scores' do
-    "LOS MEJORES SCORES DEDEDEDEDEDE TODA LA HISTORIA"
+    erb :scores
 end

@@ -1,26 +1,39 @@
+// import data from '/src/questions.json';
+// [{
+//     q: "What is the standard distance between t|he target and archer in Olympics?",
+//     o: [
+//         "50 meters",
+//         "correct",
+//         "100 meters",
+//         "120 meters"
+//     ],
+
+//     a: 1
+// }]
+
+
+
 var quiz = {
-    data: [{
-            q: "What is the standard distance between t|he target and archer in Olympics?",
-            o: [
-                "50 meters",
-                "correct",
-                "100 meters",
-                "120 meters"
-            ],
+    // data: [{
+        //         q: "What is the standard distance between t|he target and archer in Olympics?",
+        //         o: [
+        //             "50 meters",
+        //             "correct",
+        //             "100 meters",
+        //             "120 meters"
+        //         ],
 
-            a: 1
-        }
-        // {
-        //     q: "Which is the highest number on a standard roulette wheel?",
-        //     o: [
-        //         "22",
-        //         "24",
-        //         "32",
-        //         "36"
-        //     ],
+        //         a: 1
+        //     },
+        //     {
+        //         q: "Which is the highest number on a standard roulette wheel?",
+        //         o: [
+        //             "22",
+        //             "24"
+        //         ],
 
-        //     a: 3
-        // },
+        //         a: 3
+        //     },
 
         // {
         //     q: "How much wood could a woodchuck chuck if a woodchuck would chuck wood?",
@@ -57,7 +70,10 @@ var quiz = {
 
         //     a: 3
         // }
-    ],
+    // ],
+    
+    data: [],
+    quests: [],
 
     hWrap: null, // HTML quiz container
     hQn: null, // HTML question wrapper
@@ -76,22 +92,24 @@ var quiz = {
         quiz.hAns = document.createElement("div");
         quiz.hAns.id = "quizAns";
         quiz.hWrap.appendChild(quiz.hAns);
+        quiz.quests = getQuests(quiz.data)
 
         quiz.draw();
     },
 
     draw: () => {
-        quiz.hQn.innerHTML = quiz.data[quiz.now].q;
+
+        quiz.hQn.innerHTML = quiz.quests[quiz.now].q;
 
         quiz.hAns.innerHTML = "";
-        for (let i in quiz.data[quiz.now].o) {
+        for (let i in quiz.quests[quiz.now].o) {
             let radio = document.createElement("input");
             radio.type = "radio";
             radio.name = "quiz";
             radio.id = "quizo" + i;
             quiz.hAns.appendChild(radio);
             let label = document.createElement("label");
-            label.innerHTML = quiz.data[quiz.now].o[i];
+            label.innerHTML = quiz.quests[quiz.now].o[i];
             label.setAttribute("for", "quizo" + i);
             label.dataset.idx = i;
             label.addEventListener("click", () => {
@@ -107,7 +125,7 @@ var quiz = {
             label.removeEventListener("click", quiz.select);
         }
 
-        let correct = option.dataset.idx == quiz.data[quiz.now].a;
+        let correct = option.dataset.idx == quiz.quests[quiz.now].a;
         if (correct) {
             quiz.score++;
             option.classList.add("correct");
@@ -117,10 +135,10 @@ var quiz = {
 
         quiz.now++;
         setTimeout(() => {
-            if (quiz.now < quiz.data.length) {
+            if (quiz.now < quiz.quests.length) {
                 quiz.draw();
             } else {
-                quiz.hQn.innerHTML = `You have answered ${quiz.score} of ${quiz.data.length} correctly.`;
+                quiz.hQn.innerHTML = `You have answered ${quiz.score} of ${quiz.quests.length} correctly.`;
                 quiz.hAns.innerHTML = "";
 
                 let radio = document.createElement("input");
@@ -157,5 +175,42 @@ var quiz = {
         quiz.draw();
     }
 };
+
+fetch("/js/questions.json")
+            .then(response => response.json())
+            .then(data => quiz.data = data)
+            .catch(err => {
+                console.log("Error Reading data " + err);
+
+            });
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+              
+function getQuests(data){
+    //length sabado = 9
+    let path = window.location.pathname;
+    var parm = parseInt(path.slice(6))
+    var seed = []
+    var ret = []
+
+    for (let i = 0; i < parm; i++) {
+        let isAdded = false
+        while(!isAdded){
+            let n = getRandomInt(9)
+            if(!seed.includes(n)) {
+                seed.push(n)
+                isAdded = true
+            }
+        }
+    }
+    seed.forEach(i => {
+        ret.push(data[i])
+    });
+    
+    return ret
+}
+
 
 window.addEventListener("load", quiz.init);
