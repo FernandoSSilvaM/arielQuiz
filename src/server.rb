@@ -10,8 +10,6 @@ get '/' do
 end
 
 get '/quiz/:n' do
-    #funct llmara lambda
-    @n = params['n'].to_i
     erb :quiz
 end
 

@@ -1,6 +1,6 @@
 var main = {
-    hWrap: null, // HTML main container
-    option: null, // HTML answers wrapper
+    hWrap: null,
+    option: null, 
 
 
     init: () => {
