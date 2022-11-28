@@ -1,4 +1,9 @@
-// import data from '/src/questions.json';
+// Final Project: Quiz Application with Microservices
+// Date: 28-Nov-2022
+// Authors:
+//          A01746925 Fernando Sebastian Silva Miramontes
+//          A01377205 Jose Luis Mata Lomelí
+
 // [{
 //     q: "What is the standard distance between t|he target and archer in Olympics?",
 //     o: [
@@ -14,64 +19,7 @@
 
 
 var quiz = {
-    // data: [{
-        //         q: "What is the standard distance between t|he target and archer in Olympics?",
-        //         o: [
-        //             "50 meters",
-        //             "correct",
-        //             "100 meters",
-        //             "120 meters"
-        //         ],
 
-        //         a: 1
-        //     },
-        //     {
-        //         q: "Which is the highest number on a standard roulette wheel?",
-        //         o: [
-        //             "22",
-        //             "24"
-        //         ],
-
-        //         a: 3
-        //     },
-
-        // {
-        //     q: "How much wood could a woodchuck chuck if a woodchuck would chuck wood?",
-        //     o: [
-        //         "400 pounds",
-        //         "550 pounds",
-        //         "700 pounds",
-        //         "750 pounds"
-        //     ],
-
-        //     a: 2
-        // },
-
-        // {
-        //     q: "Which is the seventh planet from the sun?",
-        //     o: [
-        //         "Uranus",
-        //         "Earth",
-        //         "Pluto",
-        //         "Mars"
-        //     ],
-
-        //     a: 0
-        // },
-
-        // {
-        //     q: "Which is the largest ocean on Earth?",
-        //     o: [
-        //         "Atlantic Ocean",
-        //         "Indian Ocean",
-        //         "Arctic Ocean",
-        //         "Pacific Ocean"
-        //     ],
-
-        //     a: 3
-        // }
-    // ],
-    
     data: [],
     quests: [],
 
@@ -95,6 +43,7 @@ var quiz = {
         quiz.quests = getQuests(quiz.data)
 
         quiz.draw();
+        x = 0/0
     },
 
     draw: () => {
@@ -141,18 +90,12 @@ var quiz = {
                 quiz.hQn.innerHTML = `You have answered ${quiz.score} of ${quiz.quests.length} correctly.`;
                 quiz.hAns.innerHTML = "";
 
-                let radio = document.createElement("input");
-                radio.type = "radio";
-                radio.name = "menu";
-                radio.id = "menu";
-                quiz.hAns.appendChild(radio);
-                let label = document.createElement("label");
-                label.innerHTML = 'Menu principal';
-                label.setAttribute("for", "quizo");
-                label.addEventListener("click", () => {
-                    window.location.replace("/");
-                });
-                quiz.hAns.appendChild(label);
+                let text = document.createElement("input");
+                    text.type = "text";
+                    text.name = "menu";
+                    text.id = "menu";
+                    text.placeholder = "nickname"
+                quiz.hAns.appendChild(text);
 
                 let radio2 = document.createElement("input");
                 radio2.type = "radio";
@@ -163,7 +106,15 @@ var quiz = {
                 label2.innerHTML = 'Ver Puntajes';
                 label2.setAttribute("for", "quizo");
                 label2.addEventListener("click", () => {
-                    window.location.replace("/scores");
+                    let origin = window.location.origin;
+                    console.log(origin)
+                    fetch(origin + '/scores', {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ "nombre": "fer", "score": quiz.score })
+                    }).then(raw => raw.json)
+                      .then(data => console.log(data));
+                    //window.location.replace("/scores");
                 });
                 quiz.hAns.appendChild(label2);
             }
@@ -187,7 +138,7 @@ fetch("/js/questions.json")
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
-              
+
 function getQuests(data){
     //length sabado = 9
     let path = window.location.pathname;
@@ -208,7 +159,7 @@ function getQuests(data){
     seed.forEach(i => {
         ret.push(data[i])
     });
-    
+
     return ret
 }
 

@@ -1,3 +1,9 @@
+# Final Project: Quiz Application with Microservices
+# Date: 28-Nov-2022
+# Authors:
+#          A01746925 Fernando Sebastian Silva Miramontes
+#          A01377205 Jose Luis Mata Lomelí
+
 require 'json'
 require 'aws-sdk-dynamodb'
 
@@ -21,9 +27,9 @@ end
 # Crea la respuesta en forma de JSON para ser enviada.
 #
 # Parametro::
-#   code:: el codigo https correspondiente 
+#   code:: el codigo https correspondiente
 #   body:: obtiene el body a entrgar
-# returns:: la respuesta a enviar 
+# returns:: la respuesta a enviar
 def make_response(code, body)
   {
     statusCode: code,
@@ -41,18 +47,18 @@ end
 # returns:: la lista de elementos en un diccionario
 def make_result_list(items)
   items.map do |item| {
-      'nombre' => item['Username'],
-      'score' => item['Right'].to_i
+      'nombre' => item['nombre'],
+      'score' => item['score'].to_i
     }
   end
 end
 
 #Organiza los scores de mayor a menor
-# Parametro:: 
+# Parametro::
 #   items:: los datos duros de la tabla
 # returns:: la lista organizada
 def sort_items(items)
-  items.sort! {|a, b| a['score'] <=> b['score']}
+  items.sort! {|a, b| b['score'] <=> a['score']}
 end
 
 #Descarga los datos de la tabla, los ordena y produce el resultado
@@ -62,7 +68,7 @@ def get_scores
   make_result_list(items)
 end
 
-#Acomoda el body de la respuesta 
+#Acomoda el body de la respuesta
 #Paramtro::
 # body:: es el body de la respuesta, aqui se ordena
 def parse_body(body)

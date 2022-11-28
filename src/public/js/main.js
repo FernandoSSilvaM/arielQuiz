@@ -1,6 +1,12 @@
+// Final Project: Quiz Application with Microservices
+// Date: 28-Nov-2022
+// Authors:
+//          A01746925 Fernando Sebastian Silva Miramontes
+//          A01377205 Jose Luis Mata Lomelí
+
 var main = {
     hWrap: null,
-    option: null, 
+    option: null,
 
 
     init: () => {

@@ -2,14 +2,14 @@
 # Date: 28-Nov-2022
 # Authors:
 #          A01746925 Fernando Sebastian Silva Miramontes
-#          A01777771 Stephen Strange
+#          A01377205 Jose Luis Mata Lomelí
 
 require 'json'
 require 'faraday'
 require 'sinatra'
 require 'aws-sdk-dynamodb'
 
-lambdascore = "https://ec26j6i46tsug6hze2eb5jyqui0uhcbe.lambda-url.us-east-1.on.aws/src/models"
+lambdascore = "https://ec26j6i46tsug6hze2eb5jyqui0uhcbe.lambda-url.us-east-1.on.aws/scores"
 
 get '/' do
     erb :main
