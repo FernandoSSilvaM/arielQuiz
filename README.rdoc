@@ -56,7 +56,7 @@ rdoc-image:img/logicalUML.jpeg
 Ofrecemos inicar con dos opciones, ya sea que agregue el número de preguntas que quiere agregar y luego inicie el quiz o revise directamente los puntajes. Si revisa los scores podra verlos y regresar al menu principal, si decide iniciar el quuiz procedera a podder contestar las
 preguntas una por una hasta que complete las preguntas seleccionadas. Una vez hecho esto, podrá ingresar su nombre y subir su puntuación. Esto lo llevará a la página de scores para ver en que lugar quedó.
 
-rdoc-image:img/processUML.png
+rdoc-image:img/processUML.jpeg
 
 === Development View
 
@@ -72,7 +72,7 @@ rdoc-image:img/devUML.jpg
 
 En cuanto al tema físico es relativamente simple. Tenemos el cliente en el cual se guardan las preguntas y se tiene las vistas del proyecto, luego el servidor que esta en AWS, en este se hace a conexión con la base de datos donde estan los scores.
 
-rdoc-image:img/physycal.jpeg
+rdoc-image:img/physicalUML.jpeg
 
 === Scenarios
 
@@ -101,7 +101,7 @@ Mention here any consulted books or web resources. Examples:
 
 - Lara, O. Z. (s/f). TaxEvation at main · OscarZunigaLara/sinatraQuiz
 
--Tutorial Point. (2020). Html tutorial (Tutorial Point, Ed.). Independently Published.
+- Tutorial Point. (2020). Html tutorial (Tutorial Point, Ed.). Independently Published.
 
 - Pure JS & CSS card multiple choice questions quiz layout. (s/f). GoSnippets Bootstrap Snippets; GoSnippets. Recuperado el 28 de noviembre de 2022, de https://gosnippets.com/snippets/pure-js-css-card-multiple-choice-questions-quiz-layout
 
