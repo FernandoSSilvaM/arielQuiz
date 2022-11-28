@@ -1,0 +1,47 @@
+[
+    {
+        "q": "",
+        "o": ["a", "b"],
+        "a": 0
+    },
+    {
+        "q": "This design pattern provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation",
+        "o": ["Adapter", "Observer", "Iterator", "Template method"],
+        "a": 2
+    },
+    {
+        "q": "The general idea of this design pattern is to build an abstract base class with a skeletal method. This skeletal method drives the bit of the processing that needs to vary, but it does so by making calls to abstract methods, which are then supplied by the concrete subclasses. ",
+        "o": ["Adapter", "Proxy", "Template method", "Chain of Responsability"],
+        "a": 2
+    },
+    {
+        "q": "This design pattern composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.",
+        "o": ["Composite", "Abstract factory", "Builder", "Binary search tree"],
+        "a": 0
+    },
+    {
+        "q": "This design pattern encapsulates a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations",
+        "o": ["Command", "Facade", "Composite", "Adapter"],
+        "a": 1
+    },
+    {
+        "q": "Modifying the aggregate object while iterating over it is the most common problem associated with the iterator pattern.",
+        "o": ["True", "False"],
+        "a": 0
+    },
+    {
+        "q": "Structural patterns are all about Class's objects communication",
+        "o": ["True", "False"],
+        "a": 1
+    },
+    {
+        "q": "Creational patterns consist all about class instantiation",
+        "o": ["True", "False"],
+        "a": 0
+    },
+    {
+        "q": "Behavioral pattern take care of effective communication and the assignment of responsibilities between objects",
+        "o": ["True", "False"],
+        "a": 0
+    }
+]

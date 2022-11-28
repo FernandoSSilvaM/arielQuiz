@@ -149,7 +149,7 @@ function getQuests(data){
     for (let i = 0; i < parm; i++) {
         let isAdded = false
         while(!isAdded){
-            let n = getRandomInt(9)
+            let n = getRandomInt(50)
             if(!seed.includes(n)) {
                 seed.push(n)
                 isAdded = true

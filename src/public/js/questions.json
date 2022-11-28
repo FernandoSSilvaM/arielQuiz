@@ -43,5 +43,195 @@
         "q": "Behavioral pattern take care of effective communication and the assignment of responsibilities between objects",
         "o": ["True", "False"],
         "a": 0
+    },
+    {
+        "q": "From the following patterns, select one that apply to Creational patterns",
+        "o": ["Singleton", "Decorator", "Iterator", "Builder"],
+        "a": 0
+    },
+    {
+        "q": "From the following patterns, select one that apply to Structural patterns",
+        "o": ["Prototype", "Adapter", "Observer", "Template method"],
+        "a": 1
+    },
+    {
+        "q": "From the following patterns, select all that doens't apply to Behavioral patterns",
+        "o": ["Iterator", "Interpreter", "Decorator", "Mediator"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Abstract pattern",
+        "o": ["the sheet metal stamping equipment", "fast food restaurants", "an office warehouse", "The office of the P.O.T.U.S"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Builder pattern",
+        "o": ["The office of the P.O.T.U.S", "Fast food restaurants", "The mitotic division of a cell", "Manufacturers of plastic toys"],
+        "a": 1
+    },
+    {
+        "q": "Select the best example to describe Factory method pattern",
+        "o": ["an office warehouse", "The office of the P.O.T.U.S", "Manufacturers of plastic toys", "Sheet metal stamping equipment"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Object pool pattern",
+        "o": ["an office warehouse", "The office of the P.O.T.U.S", "The mitotic division of a cell", "Manufacturers of plastic toys"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Prototype pattern",
+        "o": ["an office warehouse", "The office of the P.O.T.U.S", "The mitotic division of a cell", "Manufacturers of plastic toys"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Singleton pattern",
+        "o": ["an office warehouse",  "The mitotic division of a cell", "Manufacturers of plastic toys", "The office of the P.O.T.U.S"],
+        "a": 3
+    },
+    {
+        "q": "Select the best example to describe Adapter pattern",
+        "o": ["an office warehouse",  "Socket wrenches", "Weapon attachments", "The office of the P.O.T.U.S"],
+        "a": 1
+    },
+    {
+        "q": "Select the best example to describe Bridge pattern",
+        "o": ["Weapon attachments",  "Socket wrenches", "A light switch", "The office of the P.O.T.U.S"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Composite pattern",
+        "o": ["Arithmetic expressions",  "Socket wrenches", "A bank draft", "Weapon attachments"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Decorator pattern",
+        "o": ["A light switch",  "an office warehouse", "A bank draft", "Weapon attachments"],
+        "a": 3
+    },
+    {
+        "q": "Select the best example to describe Facade pattern",
+        "o": ["A light switch",  "Weapon attachments", "The office of the P.O.T.U.S", "Ordering from a catalog"],
+        "a": 3
+    },
+    {
+        "q": "Select the best example to describe Flyweight pattern",
+        "o": ["Modern web browsers", "A light switch", "Weapon attachments", "Ordering from a catalog"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Private Class Data pattern",
+        "o": ["A sandwich", "Modern web browsers", "A light switch", "Ordering from a catalog"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Proxy pattern",
+        "o": ["A light switch", "Socket wrenches", "A bank draft", "Ordering from a catalog"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Chain of Responsability pattern",
+        "o": ["A light switch", "An ATM", "A bank draft", "Musicians"],
+        "a": 1
+    },
+    {
+        "q": "Select the best example to describe Command pattern",
+        "o": ["A light switch", "Socket wrenches", "a taxi company", "The check at a diner"],
+        "a": 3
+    },
+    {
+        "q": "Select the best example to describe Interpreter pattern",
+        "o": ["An ATM", "a taxi company", "Musicians", "An auction"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Iterator pattern",
+        "o": ["TVs", "Musicians", "Weapon attachment", "An auction"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Mediator pattern",
+        "o": ["a control tower of an airport", "a taxi company", "Musicians", "an office warehouse"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Memento pattern",
+        "o": ["An auction", "a taxi company", "do-it-yourself mechanics", "TVs"],
+        "a": 2
+    },
+    {
+        "q": "Select the best example to describe Observer pattern",
+        "o": ["Musicians", "An auction", "Weapon attachment", "Home builder"],
+        "a": 1
+    },
+    {
+        "q": "Select the best example to describe State pattern",
+        "o": ["A vending machine", "a taxi company", "Home builder", "Fast food restaurants"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Strategy pattern",
+        "o": ["transportation to an airport", "Musicians", "Weapon attachment", "Fast food restaurants"],
+        "a": 0
+    },
+    {
+        "q": "Select the best example to describe Template method pattern",
+        "o": ["Musicians", "a taxi company", "a control tower of an airport", "Home builder"],
+        "a": 3
+    },
+    {
+        "q": "Select the best example to describe Visitor pattern",
+        "o": ["a control tower of an airport", "a taxi company", "An auction", "Musicians"],
+        "a": 1
+    },
+    {
+        "q": " An AntiPatern can be defined as ",
+        "o": ["a solution that generates negative results", "a solution that generates positive results"],
+        "a": 0
+    },
+    {
+        "q": " An AntiPatern may be the result of a developer ",
+        "o": ["Having a good context and a wrong pattern", "Having a wrong context and a good pattern"],
+        "a": 1
+    },
+    {
+        "q": "These are examples of Software Development Antipatterns, except",
+        "o": ["Minefield", "Golden Hammer", "Dead End", "Spaghetti Code"],
+        "a": 0
+    },
+    {
+        "q": "These are examples of Software Architecture Antipatterns, except",
+        "o": ["Jumble", "Wolf Ticket", "Warm Winter", "Swiss Army Knife"],
+        "a": 2
+    },
+    {
+        "q": "These are examples of Software Project Management Antipatterns, except",
+        "o": ["Fear of Success", "Easy Breeze", "Smoke and Mirrors", "Death by Planning"],
+        "a": 1
+    },
+    {
+        "q": "What race practices the religion known as the Sword Logic",
+        "o": ["Hive", "Vex", "Fallen", "Guardians"],
+        "a": 1
+    },
+    {
+        "q": "What are the Nine",
+        "o": ["The original Vex", "Emissaries of the Darkness", "the Old gods", "Dark matter beings"],
+        "a": 3
+    },
+    {
+        "q": "Who was the wielder of the weapon called Thorn?",
+        "o": ["Uldren Sov", "Lord Saladin", "Dredgen Yor", "Shawn Han"],
+        "a": 2
+    },
+    {
+        "q": "Weapon that finally killed Dredgen Yor?",
+        "o": ["Thorn", "Rose", "Last Word", "Malfeasance"],
+        "a": 2
+    },
+    {
+        "q": "Whose soul was transformed into the weapon called Whisper of the Worm",
+        "o": ["Xol", "Xivu Arath", "Savathun", "Orix"],
+        "a": 0
     }
 ]
