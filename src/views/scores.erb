@@ -12,6 +12,15 @@
 <body oncontextmenu='return false' class='snippet-body'>
     <div class="widget-wrap">
         <h1>SCORES</h1>
+        <p>
+          <ol>
+            <% @scores.each do |score| %>
+            <li>
+              <em><%= score['nombre'] %></em>, <%= score['score'] %>
+            </li>
+            <% end %>
+          </ol>
+        </p>
     </div>
 
 </body>
