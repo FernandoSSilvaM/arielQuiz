@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>README.rdoc</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>README.rdoc
+</h1>
+<div class='paths'>
+README.rdoc
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2022-11-28 21:05:05 +0000</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<h1 id="label-Application+Design+and+Architecture">Application Design and Architecture<span><a href="#label-Application+Design+and+Architecture">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<table class="rdoc-list note-list"><tbody><tr><td class='label'>Author</td><td>
+<p>Fernando Silva</p>
+</td></tr><tr><td class='label'>Co-Author</td><td>
+<p>Jose Luis Mata</p>
+</td></tr><tr><td class='label'>Date</td><td>
+<p>11 Nov, 2022</p>
+</td></tr></tbody></table>
+
+<p>Aqui se descrube la documentación de la aplicación de un quiz el cual usa microservicios con las herramientas de lambda, sinatra y dynamodb, Si no se ha hecho previeamnete, se deben de instalar las siguientes gemas:</p>
+
+<pre>$ gem install hanna-nouveau
+$ gem install sinatra
+$ gem install faraday
+$ gem install aws-sdk-dynamodb</pre>
+
+<p>La estructura del proyecto es la siguiente:</p>
+
+<pre>arielQuiz/
+      ├─ doc/                   Folder del RDoc.
+      ├─ img/                   Folder de las imagenes para documentar.
+      └─ src/                   Folder con el codigo per se.
+           ├─ public/           Folder con codigo utilizado por el cliente.
+           │     └─ css/        Folder con el estilo de la pagina.
+           │     └─ js/         Folder con los scrpts y el archivo de las preguntas,
+           ├─ models/           Folder con los modelos.
+           └─ views/            Folder con las vistas de la aplicacion</pre>
+
+<p>El archivo <code>builddocs.sh</code> tiene el script requerido para hacer la documentación necesaria. Corre el script desde el directorio arielQuiz escribiendo en la terminal:</p>
+
+<pre>$ bash builddocs.sh</pre>
+
+<p>La raíz de la documentaci+on debería estar en: <code>arielQuiz/doc/index.html</code></p>
+
+<p>Se puede usar cualquier browser para ver el resultado.</p>
+
+<h2 id="label-Instalar+y+correr+la+aplicaci-C3-B3n.">Instalar y correr la aplicación.<span><a href="#label-Instalar+y+correr+la+aplicaci-C3-B3n.">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>En esta seccion se explica como correr e instalar la aplicación.</p>
+
+<p>Necesitas tener Ruby 2.6 minimo y tener las gems instaladas que se mencionaron anteriormente. Una vez que se tienene estos requisitos, se puede usar el siguiente comando en el directorios <code>/src</code></p>
+
+<pre>$ ruby -I . -w server.rb</pre>
+
+<p>Despues de esto, en la terminal se mostrará cual es el URL donde se esta corriendo la aplicación.</p>
+
+<h2 id="label-4-2B1+Modelo+Arquitectorial+View">4+1 Modelo Arquitectorial View<span><a href="#label-4-2B1+Modelo+Arquitectorial+View">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h3 id="label-Logical+View">Logical View<span><a href="#label-Logical+View">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>La sesión puede estar en dos lugares, uno es ir a los scores, y otro es entrar a al quiz. El quiz carga las pregunntas correspondientes dependiendo de cuantas preguntas se busquen, mietras  que scores descarga las puntuaciones que estan guardadas en DynnamoDB</p>
+
+<p><img src="img/logicalUML.jpeg"></p>
+
+<h3 id="label-Process+View">Process View<span><a href="#label-Process+View">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Ofrecemos inicar con dos opciones, ya sea que agregue el número de preguntas que quiere agregar y luego inicie el quiz o revise directamente los puntajes. Si revisa los scores podra verlos y regresar al menu principal, si decide iniciar el quuiz procedera a podder contestar las preguntas una por una hasta que complete las preguntas seleccionadas. Una vez hecho esto, podrá ingresar su nombre y subir su puntuación. Esto lo llevará a la página de scores para ver en que lugar quedó.</p>
+
+<p><img src="img/processUML.jpeg"></p>
+
+<h3 id="label-Development+View">Development View<span><a href="#label-Development+View">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Nuestro proyecto se compone de 4 partes:</p>
+
+<pre>-models: se utilizan para cargar datos
+-views: son las pantallas
+-public: aqui se guarda logica del fronend y el estilo de la página
+-storage: se guarda principalmente los puntajes</pre>
+
+<p><img src="img/devUML.jpg"></p>
+
+<h3 id="label-Physical+View">Physical View<span><a href="#label-Physical+View">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>En cuanto al tema físico es relativamente simple. Tenemos el cliente en el cual se guardan las preguntas y se tiene las vistas del proyecto, luego el servidor que esta en AWS, en este se hace a conexión con la base de datos donde estan los scores.</p>
+
+<p><img src="img/physicalUML.jpeg"></p>
+
+<h3 id="label-Scenarios">Scenarios<span><a href="#label-Scenarios">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Considedranos 4 escenarios posibles:</p>
+
+<pre>-Que simplemente se meta a ver los puntajes
+-Que Haga el quiz y suba  su puntaje
+-Que haga el quiz y no suba su puntaje
+-Que empieze el quiz pero no lo acabe</pre>
+
+<p><img src="img/caseUML.jpeg"></p>
+
+<h2 id="label-Patterns+Used">Patterns Used<span><a href="#label-Patterns+Used">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Para este proyecto se usaron principalmente 2 patrones.</p>
+<ul><li>
+<p><strong>Domain-Specific Language</strong>: El archivo <code>server.rb</code> contiene una serie de rutas de Sinatra. Sinatra es un DSL diseñado en crear aplicaciones en ruby.</p>
+</li><li>
+<p><strong>Model-View-Controller</strong>: La aplicacion procura usar un sistema mvc, en donde se tiene un modelo que obtiene los datos, un controllador que los pone donde debe y una vista donde se pueden ver.</p>
+</li></ul>
+
+<h2 id="label-Acknowledgments">Acknowledgments<span><a href="#label-Acknowledgments">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Agradezcco a GoSnippets que es donde se consiguó el template, a Sebastián Morales por ayuda técnica y apoyo moral y tanto a Leo Castillejos como Oscar Zúñga por ayudarme con el proyecto.</p>
+
+<h2 id="label-References">References<span><a href="#label-References">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Mention here any consulted books or web resources. Examples:</p>
+<ul><li>
+<p>Lara, O. Z. (s/f). TaxEvation at main · OscarZunigaLara/sinatraQuiz</p>
+</li><li>
+<p>Tutorial Point. (2020). Html tutorial (Tutorial Point, Ed.). Independently Published.</p>
+</li><li>
+<p>Pure JS &amp; CSS card multiple choice questions quiz layout. (s/f). GoSnippets Bootstrap Snippets; GoSnippets. Recuperado el 28 de noviembre de 2022, de <a target="_top" href="https://gosnippets.com/snippets/pure-js-css-card-multiple-choice-questions-quiz-layout">gosnippets.com/snippets/pure-js-css-card-multiple-choice-questions-quiz-layout</a></p>
+</li></ul>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/jeremyevans/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

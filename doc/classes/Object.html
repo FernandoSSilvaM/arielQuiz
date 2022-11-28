@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Object</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Object
+</h1>
+<ol class='paths'>
+<li>
+<a href="../files/src/models/lambda_function_rb.html">src/models/lambda_function.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong>BasicObject</strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'></div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-get_scores">get_scores</a></li>
+<li><a href="#method-i-handle_bad_method">handle_bad_method</a></li>
+<li><a href="#method-i-handle_bad_request">handle_bad_request</a></li>
+<li><a href="#method-i-handle_get">handle_get</a></li>
+<li><a href="#method-i-handle_post">handle_post</a></li>
+<li><a href="#method-i-lambda_handler">lambda_handler</a></li>
+<li><a href="#method-i-make_response">make_response</a></li>
+<li><a href="#method-i-make_result_list">make_result_list</a></li>
+<li><a href="#method-i-parse_body">parse_body</a></li>
+<li><a href="#method-i-sort_items">sort_items</a></li>
+<li><a href="#method-i-store_score_item">store_score_item</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='section'>
+<div id='constants-list'>
+<h2>Constants</h2>
+<div class='name-list'>
+<table summary='Constants'>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>DYNAMODB</td>
+<td>=</td>
+<td class='context-item-value'>Aws::DynamoDB::Client.new</td>
+<td>&nbsp;</td>
+<td class='context-item-desc'>
+<p>Constant que contiene la instancia del cliente de Dynamo</p>
+</td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>TABLE_NAME</td>
+<td>=</td>
+<td class='context-item-value'>'scores'</td>
+<td>&nbsp;</td>
+<td class='context-item-desc'>
+<p>Constante que contiene el nombre de la tabla que va a ser usada</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id='methods'>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-get_scores'>
+<a name='method-i-get_scores'></a>
+<div class='synopsis'>
+<span class='name'>get_scores</span><span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Descarga los datos de la tabla, los ordena y produce el resultado</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-get_scores-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-get_scores-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_scores</span>
+  <span class="ruby-identifier">items</span> = <span class="ruby-constant">DYNAMODB</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-value">table_name:</span> <span class="ruby-constant">TABLE_NAME</span>).<span class="ruby-identifier">items</span>
+  <span class="ruby-identifier">sort_items</span>(<span class="ruby-identifier">items</span>)
+  <span class="ruby-identifier">make_result_list</span>(<span class="ruby-identifier">items</span>)
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-handle_bad_method'>
+<a name='method-i-handle_bad_method'></a>
+<div class='synopsis'>
+<span class='name'>handle_bad_method</span><span class='arguments'>(method)</span>
+
+</div>
+<div class='description'>
+
+<p>Es la funcion que maneja que hacer cuando tratamos de realizar un metodo que no consideramos</p>
+<table class="rdoc-list note-list"><tbody><tr><td class='label'>Parametro</td><td><table class="rdoc-list note-list"><tbody><tr><td class='label'>method</td><td>
+<p>es el nombre del metodo que no debimos usar</p>
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-handle_bad_method-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-handle_bad_method-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_bad_method</span>(<span class="ruby-identifier">method</span>)
+  <span class="ruby-identifier">make_response</span>(<span class="ruby-constant">HttpStatus</span><span class="ruby-operator">::</span><span class="ruby-constant">METHOD_NOT_ALLOWED</span>,
+    {<span class="ruby-value">message:</span> <span class="ruby-node">&quot;Method not supported: #{method}&quot;</span>})
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-handle_bad_request'>
+<a name='method-i-handle_bad_request'></a>
+<div class='synopsis'>
+<span class='name'>handle_bad_request</span><span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Es la funcion que maneja que hacer cuando tenemos un request erroneo</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-handle_bad_request-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-handle_bad_request-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_bad_request</span>
+  <span class="ruby-identifier">make_response</span>(<span class="ruby-constant">HttpStatus</span><span class="ruby-operator">::</span><span class="ruby-constant">BAD_REQUEST</span>,
+    {<span class="ruby-value">message:</span> <span class="ruby-string">&#39;Bad request (invalid input)&#39;</span>})
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-handle_get'>
+<a name='method-i-handle_get'></a>
+<div class='synopsis'>
+<span class='name'>handle_get</span><span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Es la funcion que maneja que hacer cuando recibimos un get</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-handle_get-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-handle_get-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_get</span>
+  <span class="ruby-identifier">make_response</span>(<span class="ruby-constant">HttpStatus</span><span class="ruby-operator">::</span><span class="ruby-constant">OK</span>, <span class="ruby-identifier">get_scores</span>)
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-handle_post'>
+<a name='method-i-handle_post'></a>
+<div class='synopsis'>
+<span class='name'>handle_post</span><span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Es la funcion que maneja que hacer cuando recibimos un post</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-handle_post-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-handle_post-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handle_post</span>
+  <span class="ruby-identifier">make_response</span>(<span class="ruby-constant">HttpStatus</span><span class="ruby-operator">::</span><span class="ruby-constant">CREATED</span>,
+    {<span class="ruby-value">message:</span> <span class="ruby-string">&#39;Resource created or updated&#39;</span>})
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-lambda_handler'>
+<a name='method-i-lambda_handler'></a>
+<div class='synopsis'>
+<span class='name'>lambda_handler</span><span class='arguments'>(event:, context:)</span>
+
+</div>
+<div class='description'>
+
+<p>Es el que se encarga de manejar el lambda</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-lambda_handler-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-lambda_handler-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 126</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">lambda_handler</span>(<span class="ruby-value">event:</span>, <span class="ruby-value">context:</span>)
+  <span class="ruby-identifier">method</span> = <span class="ruby-identifier">event</span>.<span class="ruby-identifier">dig</span>(<span class="ruby-string">&#39;requestContext&#39;</span>, <span class="ruby-string">&#39;http&#39;</span>, <span class="ruby-string">&#39;method&#39;</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">method</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;GET&#39;</span>
+    <span class="ruby-identifier">handle_get</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;POST&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">store_score_item</span>(<span class="ruby-identifier">event</span>[<span class="ruby-string">&#39;body&#39;</span>])
+      <span class="ruby-identifier">handle_post</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">handle_bad_request</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">handle_bad_method</span>(<span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-make_response'>
+<a name='method-i-make_response'></a>
+<div class='synopsis'>
+<span class='name'>make_response</span><span class='arguments'>(code, body)</span>
+
+</div>
+<div class='description'>
+
+<p>Crea la respuesta en forma de JSON para ser enviada.</p>
+<table class="rdoc-list note-list"><tbody><tr><td class='label'>Parametro</td><td><table class="rdoc-list note-list"><tbody><tr><td class='label'>code</td><td>
+<p>el codigo https correspondiente</p>
+</td></tr><tr><td class='label'>body</td><td>
+<p>obtiene el body a entrgar</p>
+</td></tr></tbody></table>
+</td></tr><tr><td class='label'>returns</td><td>
+<p>la respuesta a enviar</p>
+</td></tr></tbody></table>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-make_response-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-make_response-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">make_response</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">body</span>)
+  {
+    <span class="ruby-value">statusCode:</span> <span class="ruby-identifier">code</span>,
+    <span class="ruby-value">headers:</span> {
+      <span class="ruby-string">&quot;Content-Type&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;application/json; charset=utf-8&quot;</span>
+    },
+    <span class="ruby-value">body:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">body</span>)
+  }
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-make_result_list'>
+<a name='method-i-make_result_list'></a>
+<div class='synopsis'>
+<span class='name'>make_result_list</span><span class='arguments'>(items)</span>
+
+</div>
+<div class='description'>
+
+<p>Organiza los datos en diccionarios</p>
+
+<pre class="ruby"><span class="ruby-constant">Parametro</span><span class="ruby-operator">::</span>
+  <span class="ruby-identifier">items</span><span class="ruby-operator">::</span> <span class="ruby-identifier">los</span> <span class="ruby-identifier">datos</span> <span class="ruby-identifier">duros</span> <span class="ruby-identifier">de</span> <span class="ruby-identifier">la</span> <span class="ruby-identifier">tabla</span>
+<span class="ruby-identifier">returns</span><span class="ruby-operator">::</span> <span class="ruby-identifier">la</span> <span class="ruby-identifier">lista</span> <span class="ruby-identifier">de</span> <span class="ruby-identifier">elementos</span> <span class="ruby-identifier">en</span> <span class="ruby-identifier">un</span> <span class="ruby-identifier">diccionario</span>
+</pre>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-make_result_list-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-make_result_list-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">make_result_list</span>(<span class="ruby-identifier">items</span>)
+  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> {
+      <span class="ruby-string">&#39;nombre&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-string">&#39;nombre&#39;</span>],
+      <span class="ruby-string">&#39;score&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-string">&#39;score&#39;</span>].<span class="ruby-identifier">to_i</span>
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-parse_body'>
+<a name='method-i-parse_body'></a>
+<div class='synopsis'>
+<span class='name'>parse_body</span><span class='arguments'>(body)</span>
+
+</div>
+<div class='description'>
+
+<p>Acomoda el body de la respuesta</p>
+<table class="rdoc-list note-list"><tbody><tr><td class='label'>Paramtro</td><td><table class="rdoc-list note-list"><tbody><tr><td class='label'>body</td><td>
+<p>es el body de la respuesta, aqui se ordena</p>
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-parse_body-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-parse_body-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parse_body</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">body</span>)
+      <span class="ruby-identifier">data</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-string">&#39;nombre&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">data</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">ParserError</span>
+      <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-sort_items'>
+<a name='method-i-sort_items'></a>
+<div class='synopsis'>
+<span class='name'>sort_items</span><span class='arguments'>(items)</span>
+
+</div>
+<div class='description'>
+
+<p>Organiza los scores de mayor a menor</p>
+
+<pre class="ruby"><span class="ruby-constant">Parametro</span><span class="ruby-operator">::</span>
+  <span class="ruby-identifier">items</span><span class="ruby-operator">::</span> <span class="ruby-identifier">los</span> <span class="ruby-identifier">datos</span> <span class="ruby-identifier">duros</span> <span class="ruby-identifier">de</span> <span class="ruby-identifier">la</span> <span class="ruby-identifier">tabla</span>
+<span class="ruby-identifier">returns</span><span class="ruby-operator">::</span> <span class="ruby-identifier">la</span> <span class="ruby-identifier">lista</span> <span class="ruby-identifier">organizada</span>
+</pre>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-sort_items-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-sort_items-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">sort_items</span>(<span class="ruby-identifier">items</span>)
+  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">sort!</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>[<span class="ruby-string">&#39;score&#39;</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-string">&#39;score&#39;</span>]}
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-store_score_item'>
+<a name='method-i-store_score_item'></a>
+<div class='synopsis'>
+<span class='name'>store_score_item</span><span class='arguments'>(body)</span>
+
+</div>
+<div class='description'>
+
+<p>Sube el dato del score en la base de datos</p>
+<table class="rdoc-list note-list"><tbody><tr><td class='label'>Parametro</td><td><table class="rdoc-list note-list"><tbody><tr><td class='label'>body</td><td>
+<p>el body que recibio de una funcion post</p>
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-store_score_item-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-store_score_item-source'><span class="ruby-comment"># File src/models/lambda_function.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">store_score_item</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-identifier">data</span> = <span class="ruby-identifier">parse_body</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>
+    <span class="ruby-constant">DYNAMODB</span>.<span class="ruby-identifier">put_item</span>(<span class="ruby-value">table_name:</span> <span class="ruby-constant">TABLE_NAME</span>, <span class="ruby-value">item:</span> <span class="ruby-identifier">data</span>)
+    <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/jeremyevans/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>
