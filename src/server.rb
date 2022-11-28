@@ -1,3 +1,9 @@
+# Final Project: Quiz Application with Microservices
+# Date: 28-Nov-2022
+# Authors:
+#          A01746925 Fernando Sebastian Silva Miramontes
+#          A01777771 Stephen Strange
+
 require 'json'
 require 'faraday'
 require 'sinatra'
